@@ -285,7 +285,7 @@ div#notebook {
 <span class="n">n_students</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># TODO: Calculate number of features</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="n">student_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">#to account for the fact that the last column is out target and not a feature!</span>
 
 <span class="c1"># TODO: Calculate passing students</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -294,7 +294,7 @@ div#notebook {
 <span class="n">n_failed</span> <span class="o">=</span> <span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="o">.</span><span class="n">passed</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># TODO: Calculate graduation rate</span>
-<span class="n">grad_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span><span class="o">/</span><span class="n">n_students</span>
+<span class="n">grad_rate</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="nb">float</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span><span class="o">/</span><span class="n">n_students</span>
 
 <span class="c1"># Print the results</span>
 <span class="k">print</span> <span class="s2">&quot;Total number of students: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_students</span><span class="p">)</span>
@@ -315,10 +315,10 @@ div#notebook {
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Total number of students: 395
-Number of features: 31
+Number of features: 30
 Number of students who passed: 265
 Number of students who failed: 130
-Graduation rate of the class: 0.67%
+Graduation rate of the class: 67.09%
 </pre>
 </div>
 </div>
@@ -527,7 +527,6 @@ Feature values:
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c1"># TODO: Import any additional functionality you may need here</span>
-<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
 <span class="k">def</span> <span class="nf">split_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
     <span class="k">return</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span> 
@@ -780,22 +779,22 @@ Testing set has 95 samples.
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training a LogisticRegression using a training set size of 100. . .
-Trained model in 0.0294 seconds
-Made predictions in 0.0012 seconds.
+Trained model in 0.0259 seconds
+Made predictions in 0.0010 seconds.
 F1 score for training set: 0.8593.
 Made predictions in 0.0003 seconds.
 F1 score for test set: 0.7647.
 
 Training a LogisticRegression using a training set size of 200. . .
-Trained model in 0.0021 seconds
-Made predictions in 0.0004 seconds.
+Trained model in 0.0020 seconds
+Made predictions in 0.0006 seconds.
 F1 score for training set: 0.8562.
 Made predictions in 0.0002 seconds.
 F1 score for test set: 0.7914.
 
 Training a LogisticRegression using a training set size of 300. . .
-Trained model in 0.0026 seconds
-Made predictions in 0.0002 seconds.
+Trained model in 0.0034 seconds
+Made predictions in 0.0004 seconds.
 F1 score for training set: 0.8468.
 Made predictions in 0.0002 seconds.
 F1 score for test set: 0.8060.
@@ -808,8 +807,8 @@ Made predictions in 0.0002 seconds.
 F1 score for test set: 0.6552.
 
 Training a DecisionTreeClassifier using a training set size of 200. . .
-Trained model in 0.0019 seconds
-Made predictions in 0.0003 seconds.
+Trained model in 0.0015 seconds
+Made predictions in 0.0004 seconds.
 F1 score for training set: 1.0000.
 Made predictions in 0.0003 seconds.
 F1 score for test set: 0.7500.
@@ -818,28 +817,28 @@ Training a DecisionTreeClassifier using a training set size of 300. . .
 Trained model in 0.0019 seconds
 Made predictions in 0.0003 seconds.
 F1 score for training set: 1.0000.
-Made predictions in 0.0003 seconds.
+Made predictions in 0.0002 seconds.
 F1 score for test set: 0.6613.
 
 Training a AdaBoostClassifier using a training set size of 100. . .
-Trained model in 0.1589 seconds
-Made predictions in 0.0066 seconds.
+Trained model in 0.1710 seconds
+Made predictions in 0.0077 seconds.
 F1 score for training set: 0.9481.
-Made predictions in 0.0061 seconds.
+Made predictions in 0.0059 seconds.
 F1 score for test set: 0.7669.
 
 Training a AdaBoostClassifier using a training set size of 200. . .
-Trained model in 0.1317 seconds
-Made predictions in 0.0079 seconds.
+Trained model in 0.1275 seconds
+Made predictions in 0.0070 seconds.
 F1 score for training set: 0.8927.
-Made predictions in 0.0060 seconds.
+Made predictions in 0.0059 seconds.
 F1 score for test set: 0.8281.
 
 Training a AdaBoostClassifier using a training set size of 300. . .
-Trained model in 0.1288 seconds
+Trained model in 0.1430 seconds
 Made predictions in 0.0074 seconds.
 F1 score for training set: 0.8637.
-Made predictions in 0.0059 seconds.
+Made predictions in 0.0058 seconds.
 F1 score for test set: 0.7820.
 
 </pre>
@@ -1060,7 +1059,15 @@ Recall of: 0.9
 <p><strong>Answer: </strong></p>
 <p>We've decided to do the analysis using a technique called Logistic Regression. We've separated the data into 2 groups, one we use to train the algorithm so that it can learn from the data we have and the other group we use to make sure it is working properly.</p>
 <p>The way it works is: it will look at all the characteristics for each student and try to find relations among these features that can tell if a student is more likely to suceed or not. So we feed to the algorithm the first set of data for it to train and find all these relations. And then we get back from it these relations and use them to predict if a student in the other group of data is more likely to pass or not.</p>
+<p>To be a bit more descriptive, let's look at a simple example with less complex data. Imagine that we have scores for 2 exams that a certain number of students took. We also know if these students were accepted or not in a program they applied using these 2 scores.
+What we wanna predict is: given a new student with a pair of scores, is this student likely to be accepted in the program or not?</p>
+<p>Our Logistic Regression algorithm will look at the features, in this case the 2 exam scores and it will find the best line that divides the two groups of students: the ones that were accepted and the ones that weren't. This is the training part, where it finds this boundary line that will separate the two regions.
+Once we have this boundary we can classify new students. We simply have to check if they lie on the side of the students that are likely to be accepted or on the other side. In one image, this whole process looks like this [1]:</p>
+<p><img src="fig.png" alt="alt text" title="rvrwvrev"></p>
+<p>In our actual case, it is harder to visualize because we are using many features at the same time. But the idea remains the same. We are in this big space with 30 features (instead of 2 like in the exams example) and the algorithm is fiding for us the best decision boundary that separates the students that are likely to pass from the ones that are likely to not pass.
+Once we have that decision boundary we can check which side of it new students lie to predict if they are likely to pass or not!</p>
 <p>Since we have the answer for all the students we can see how well we are doing and the algorithm is doing pretty well. Out of the students that passed the exam we were able to correctly predict that they would pass 90% of the time!</p>
+<p>[1] <a href="https://www.quora.com/What-are-the-advantages-of-logistic-regression-over-decision-trees">https://www.quora.com/What-are-the-advantages-of-logistic-regression-over-decision-trees</a></p>
 
 </div>
 </div>
@@ -1131,7 +1138,7 @@ Recall of: 0.9
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Made predictions in 0.0004 seconds.
+<pre>Made predictions in 0.0003 seconds.
 Tuned model has a training F1 score of 0.8304.
 Made predictions in 0.0002 seconds.
 Tuned model has a testing F1 score of 0.7857.
